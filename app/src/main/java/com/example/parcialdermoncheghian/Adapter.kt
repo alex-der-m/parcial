@@ -1,6 +1,5 @@
 package com.example.parcialdermoncheghian
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class Adapter (val context: Context): ListAdapter<Receta, Adapter.ViewHolder>(DiffCallback) {
+    lateinit var onItemClickListener: (Receta) -> Unit
 
    inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
        private val name: TextView = view.findViewById(R.id.TextViewNombre)
@@ -22,7 +22,7 @@ class Adapter (val context: Context): ListAdapter<Receta, Adapter.ViewHolder>(Di
        private val image: ImageView = view.findViewById(R.id.imageView)
        private val imageCountry: ImageView = view.findViewById(R.id.imageViewPais)
 
-       @SuppressLint("SuspiciousIndentation")
+
        fun bind (receta: Receta){
         name.text = receta.name
         difficult.text = "Dificultad: " + receta.dificultad.toString()
@@ -37,6 +37,9 @@ class Adapter (val context: Context): ListAdapter<Receta, Adapter.ViewHolder>(Di
         }
            imageCountry.setImageResource(imagen)
            Glide.with(context).load(receta.image).into(image)
+           view.setOnClickListener{
+               onItemClickListener(receta)
+           }
        }
    }
 

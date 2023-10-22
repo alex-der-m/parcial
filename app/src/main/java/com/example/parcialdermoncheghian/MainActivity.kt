@@ -1,5 +1,6 @@
 package com.example.parcialdermoncheghian
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,11 +18,19 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = Adapter(this)
         recyclerView.adapter = adapter
-
         val listaReceta = getRecetas()
-
         adapter.submitList(listaReceta)
+        adapter.onItemClickListener = { receta->
+            navigateDetail(receta)
+        }
 
+
+    }
+
+    private fun navigateDetail(receta: Receta) {
+        val intent = Intent (this, DetailActivity::class.java)
+        intent.putExtra("receta", receta)
+        startActivity(intent)
     }
 
     private fun getRecetas(): MutableList<Receta> {
@@ -31,6 +40,5 @@ class MainActivity : AppCompatActivity() {
             Receta(id = 3, name = "Kibbe", DificultadReceta.DIFICIL, origen = "Líbano", listOf(Ingredientes.TRIGO, Ingredientes.CARNE), image = "https://comidasegipcias.com/wp-content/uploads/2019/10/receta-kibbe.jpg", Pais.LIBANO),
             Receta(id = 4, name = "Tabbouleh", DificultadReceta.FACIL, origen = "Sirio", listOf(Ingredientes.PEREJIL, Ingredientes.TOMATE), image = "https://www.comidaarmenia.com/wp-content/uploads/2020/02/tabule-ensalada-aremenia.jpg", Pais.SIRIA),
             Receta(id = 5, name = "Baklava", DificultadReceta.MEDIO, origen = "Chipre", listOf(Ingredientes.HARINA, Ingredientes.ALMIBAR), image = "https://pycarmenia.com/wp-content/uploads/2020/01/128.jpg", Pais.CHIPRE),
-
             )}
     }

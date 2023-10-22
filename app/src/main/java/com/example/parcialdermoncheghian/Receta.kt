@@ -1,5 +1,9 @@
 package com.example.parcialdermoncheghian
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Receta (
     val id: Int,
     val name: String,
@@ -8,17 +12,25 @@ data class Receta (
     val ingredientes: List<Ingredientes>,
     val image: String?,
     val country: Pais
-    )
+    ): Parcelable
 
 enum class DificultadReceta {
-    FACIL, MEDIO, DIFICIL
+    FACIL,
+    MEDIO,
+    DIFICIL
 }
-
 enum class  Ingredientes {
-    HARINA, TRIGO, ALMIBAR, CARNE, PEREJIL, TOMATE
-
+    HARINA,
+    TRIGO,
+    ALMIBAR,
+    CARNE,
+    PEREJIL,
+    TOMATE
 }
 enum class Pais{
-    ARMENIA, ARABIA, SIRIA, CHIPRE, LIBANO
-
+    ARMENIA,
+    ARABIA,
+    SIRIA,
+    CHIPRE,
+    LIBANO
 }
